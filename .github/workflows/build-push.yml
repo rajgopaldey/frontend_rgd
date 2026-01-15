@@ -15,7 +15,7 @@ jobs:
       IMAGE_NAME: todo-ui
       IMAGE_TAG: v1
       ACR_NAME: avishekacr
-      ACR_LOGIN_SERVER: davishekacr.azurecr.io
+      ACR_LOGIN_SERVER: avishekacr.azurecr.io
 
     steps:
       - name: Checkout code
