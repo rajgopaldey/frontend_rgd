@@ -13,9 +13,9 @@ jobs:
 
     env:
       IMAGE_NAME: todo-ui
-      IMAGE_TAG: v4
-      ACR_NAME: devopsinsidersacr235
-      ACR_LOGIN_SERVER: devopsinsidersacr235.azurecr.io
+      IMAGE_TAG: v1
+      ACR_NAME: avishekacr
+      ACR_LOGIN_SERVER: davishekacr.azurecr.io
 
     steps:
       - name: Checkout code
