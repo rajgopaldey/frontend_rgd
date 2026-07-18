@@ -1,0 +1,144 @@
+name: "tudu_ui"
+
+on:
+  push:
+    branches: [ main, cicd ]
+    paths:
+      - .github/workflows/ui.yml
+
+  pull_request:
+    branches: [ main, hotfix-* ]
+    paths:
+      - .github/workflows/ui.yml
+
+  workflow_dispatch:
+
+env:
+  artifact_name: "tudu_ui"
+  version_major: '1'
+  version_minor: '1'
+  version_patch: '1'
+  build_number: '2.0.0.${{ github.run_number }}'
+
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+
+##########################################################
+# Job-1 Build
+##########################################################
+
+jobs:
+
+  build-job:
+#gihub hosted runner github akta ubuntu base vm create kora job run korar jono.After job run vm ta delete hoi
+    runs-on: ubuntu-latest   #every job jono akata new vm create hoba job complute hola vm destory hoba
+
+    steps:
+#runner repository ba src folder taka code clone kora runner workspace  ana action verson v4
+      - name: Checkout Code
+        uses: actions/checkout@v4  
+
+        #node js ka configure kora runner ar modhy jata pora step a dependency  npm runkorta pari
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+#work space holo runner ar akta internal directory jekana npm install hoi
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Application
+        run: npm run build
+#npm run hobar disk folder create hoi artifact create hoi then git hub ar artifact storage a uplod kora dai
+    #   - name: Upload Build Artifact      
+    #     uses: actions/upload-artifact@v4
+    #     with:
+    #       name: ${{ env.artifact_name }}
+    #       path: dist
+
+##########################################################
+# Job-2 Unit Test
+##########################################################
+
+  unit-test:
+
+    needs: build-job
+    if: success()
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - run: npm install
+
+      - name: Run Unit Test
+        run: npm test
+
+##########################################################
+# Job-3 Sonar Scan
+##########################################################
+
+  sonar-scan:
+
+    needs: build-job
+    if: success()
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v4
+
+      - name: Sonar Scan
+        run: |
+          echo "Run SonarQube Scan Here"
+
+##########################################################
+# Job-4 Deploy Static Web App
+##########################################################
+
+  deploy:
+
+    needs:
+      - unit-test
+      - sonar-scan
+
+    if: success()
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Application
+        run: npm run build
+
+      - name: Deploy to Azure Static Web App
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: "upload"
+
+          app_location: "/"
+          api_location: ""
+          output_location: "dist"
