@@ -148,7 +148,7 @@ jobs:
           # az cli main comand for deploy swa (Comment shifted here to prevent syntax crash)
           az staticwebapp deploy \
             --name dev-static-app \
-            --resource-group dev-static-app \
+            --resource-group rg-dev-02 \
             --source ./build \
             --no-wait false
 
