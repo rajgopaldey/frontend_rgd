@@ -149,10 +149,10 @@ jobs:
           az staticwebapp deploy \
             --name dev-static-app \
             --resource-group frontend_rgd \
-            --source ./dist \
+            --source ./build \
             --no-wait false
 
-#Runner-er bhetor folder toiri hoy: Tumi jokhon-i workflow pipeline-e npm run build chalao,
+#./build Runner-er bhetor folder toiri hoy: Tumi jokhon-i workflow pipeline-e npm run build chalao,
 #GitHub Actions-er runner (virtual machine)-er bhetor instant automatic dist namer ekta folder 
 #generate hoy.
 #Ready file store hoy: Tarpor compiled ar absolute production-ready shob common web 
