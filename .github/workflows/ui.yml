@@ -149,7 +149,7 @@ jobs:
           az staticwebapp deploy \
             --name dev-static-app \
             --resource-group rg-dev-02 \
-            --source ./build \
+            --source ./dist \
             --no-wait false
 
 ##./build Runner-er bhetor folder toiri hoy: Tumi jokhon-i workflow pipeline-e npm run build chalao,
