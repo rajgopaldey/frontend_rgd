@@ -36,11 +36,11 @@ jobs:
     runs-on: ubuntu-latest   #every job jono akata new vm create hoba job complute hola vm destory hoba
 
     steps:
-#runner repository ba src folder taka code clone kora runner workspace  ana action verson v4
+#runner repository ba src folder taka code clone kora runner workspace ana action verson v4
       - name: Checkout Code
         uses: actions/checkout@v4  
 
-        #node js ka configure kora runner ar modhy jata pora step a dependency  npm runkorta pari
+        #node js ka configure kora runner ar modhy jata pora step a dependency npm runkorta pari
       - name: Setup Node.js Environment
         uses: actions/setup-node@v4
         with:
@@ -72,7 +72,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
@@ -96,7 +95,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       - uses: actions/checkout@v4
 
       - name: Sonar Scan
@@ -118,7 +116,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Checkout Code
         uses: actions/checkout@v4
 
@@ -133,13 +130,28 @@ jobs:
       - name: Build Application
         run: npm run build
 
-      - name: Deploy to Azure Static Web App
-        uses: Azure/static-web-apps-deploy@v1
+      #Step 1: Eita holo authentication step (OIDC passwordless)
+      # Eita Azure cloud-er dorja khule dey
+      - name: Azure Login via OIDC
+        uses: azure/login@v2
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          action: "upload"
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-          app_location: "/"
-          api_location: ""
-          output_location: "dist"
+      #Step 2: Eita holo deployment step
+      # Dorja khola peye ekhon eita direct app name diye deploy kore debe
+      - name: Deploy using Azure CLI
+        run: |
+          # az cli main comand for deploy swa (Comment shifted here to prevent syntax crash)
+          az staticwebapp deploy \
+            --name dev-static-app \
+            --resource-group frontend_rgd \
+            --source ./dist \
+            --no-wait false
+
+#Runner-er bhetor folder toiri hoy: Tumi jokhon-i workflow pipeline-e npm run build chalao,
+#GitHub Actions-er runner (virtual machine)-er bhetor instant automatic dist namer ekta folder 
+#generate hoy.
+#Ready file store hoy: Tarpor compiled ar absolute production-ready shob common web 
+#files—jemon HTML, CSS, ar JavaScript—shegulo automatic convert/minify hoye oi new dist folder-er bhetorei store hoy.
