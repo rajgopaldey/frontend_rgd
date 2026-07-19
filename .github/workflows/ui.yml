@@ -142,7 +142,7 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       #Step 2: Eita holo deployment step
-      # Dorja khola peye ekhon eita direct app name diye deploy kore debe
+      ## Dorja khola peye ekhon eita direct app name diye deploy kore debe
       - name: Deploy using Azure CLI
         run: |
           # az cli main comand for deploy swa (Comment shifted here to prevent syntax crash)
