@@ -49,8 +49,9 @@ jobs:
 #work space holo runner ar akta internal directory jekana npm install hoi
       - name: Install Dependencies
         run: npm install
-
       - name: Build Application
+        env:
+          CI: false
         run: npm run build
 #npm run hobar disk folder create hoi artifact create hoi then git hub ar artifact storage a uplod kora dai
     #   - name: Upload Build Artifact      
