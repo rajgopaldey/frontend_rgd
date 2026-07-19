@@ -116,7 +116,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # Ekhane amra node setup kore manually workspace architecture build context trigger korchi
+      # Step 1: Amra eikhane Node cache clear dependencies module read tracking ensure korbo
       - name: Setup Node.js Environment
         uses: actions/setup-node@v4
         with:
@@ -125,22 +125,37 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      # Manually CI false bypass framework call parameter run push
+      # Step 2: Custom variable matrix environment set framework data validation bypass compile
       - name: Build Application
         env:
           CI: false
         run: npm run build
 
-      # Ebar direct action template output reference config mapping block update koro
+      # Step 3: Direct skip logic parameter validation push
       - name: Build And Deploy to Azure SWA
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "/"          
-          output_location: "build"   
-          is_static_export: true     
+          app_location: "/"          # Source tracking parameter root context
+          output_location: "build"   # Tomar local pre-built code target path mapping
+          skip_app_build: true       # Oryx deployment engine manual re-build trigger check block syntax complete! 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Root directory mapping parameter
 # Pre-built target build folder reference profile layout
 # Action-er internal nested auto-build parsing execution bypass engine switch
