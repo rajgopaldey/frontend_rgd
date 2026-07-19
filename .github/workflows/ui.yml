@@ -132,21 +132,29 @@ jobs:
         run: npm run build
 
       # Step 3: Direct skip logic parameter validation push
-      - name: Build And Deploy to Azure SWA
+      - name: Build Application
+        env:
+          CI: false
+        run: npm run build
+      - name: Verify build output
+        run: |
+         ls -la build
+         ls -la build/index.htm
+      
+      
+      
+      
+      
+      
+      - name: Deploy to Azure Static Web App
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "/"               # Source code location
-          app_artifact_location: "build"  # Eita Azure-ke bole debe index.html ta 'build' folder-e ache!
-          skip_app_build: true
-
-
-
-
-
-
+          app_location: "/"
+          api_location: ""
+          output_location: "build"
 
 
 
