@@ -141,11 +141,10 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "/"
+          app_location: "build"           # Source code directory exact dynamic build copy path layout
           api_location: ""
-          output_location: "build"
-          app_artifact_location: "build"
-          skip_app_build: true
+          output_location: ""             # Pre-built asset array read context blank rakho
+          skip_app_build: true            # Oryx compiler automatic validation structure bypass
 
 ## Root directory mapping parameter
 # Pre-built target build folder reference profile layout
