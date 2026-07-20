@@ -62,24 +62,40 @@ function TodoApp() {
             }}
         >
             <Container maxWidth="sm">
-                <Typography
-                    variant="h3"
-                    gutterBottom
-                    style={{
-                        textAlign: 'center', // Center align text
-                        color: 'white', // Set text color to white
-                        margin: '8px',
-                        fontWeight: 'bold', // Text standard structural alignment bold layer layout
+                {/* 🔴 Premium Styled Red Header Layout Block */}
+                <Box 
+                    style={{ 
+                        textAlign: 'center', 
+                        paddingTop: '30px', 
+                        marginBottom: '20px' 
                     }}
                 >
-                    {/* Eikhane dynamic context block title content block layout text manually replace */}
-                    <div style={{ fontSize: '28px', marginBottom: '10px', letterSpacing: '1px' }}>
-                        Welcome to Deyinfoapp
-                    </div>
-                    <div style={{ fontSize: '36px', fontWeight: 'bold' }}>
-                        Welcome to Rajgopal Dey
-                    </div>
-                </Typography>
+                    <Typography
+                        variant="h4"
+                        style={{
+                            color: '#FF3333', // Pure Vibrant Red Color
+                            fontWeight: '800', // Bold alignment
+                            letterSpacing: '1px',
+                            marginBottom: '5px',
+                            textTransform: 'uppercase'
+                        }}
+                    >
+                        Welcome to Dey Info App
+                    </Typography>
+                    
+                    <Typography
+                        variant="subtitle1"
+                        style={{
+                            color: '#FF6666', // Slightly lighter red for contrast hierarchy
+                            fontWeight: '600',
+                            fontStyle: 'italic',
+                            letterSpacing: '0.5px'
+                        }}
+                    >
+                        Organized by Rajgopal Dey
+                    </Typography>
+                </Box>
+
                 <div>
                     <TextField
                         label="Title"
