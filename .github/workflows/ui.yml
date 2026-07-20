@@ -147,7 +147,7 @@ jobs:
           app_artifact_location: "build"
           skip_app_build: true
 
-# Root directory mapping parameter
+## Root directory mapping parameter
 # Pre-built target build folder reference profile layout
 # Action-er internal nested auto-build parsing execution bypass engine switch
 ##./build Runner-er bhetor folder toiri hoy: Tumi jokhon-i workflow pipeline-e npm run build chalao,
