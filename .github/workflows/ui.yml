@@ -125,26 +125,15 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      # Step 2: Custom variable matrix environment set framework data validation bypass compile
       - name: Build Application
         env:
           CI: false
         run: npm run build
 
-      # Step 3: Direct skip logic parameter validation push
-      - name: Build Application
-        env:
-          CI: false
-        run: npm run build
       - name: Verify build output
         run: |
-         ls -la build
-         ls -la build/index.htm
-      
-      
-      
-      
-      
+          ls -la build
+          ls -la build/index.html
       
       - name: Deploy to Azure Static Web App
         uses: Azure/static-web-apps-deploy@v1
@@ -155,13 +144,8 @@ jobs:
           app_location: "/"
           api_location: ""
           output_location: "build"
-
-
-
-
-
-
-
+          app_artifact_location: "build"
+          skip_app_build: true
 
 # Root directory mapping parameter
 # Pre-built target build folder reference profile layout
