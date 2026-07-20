@@ -69,10 +69,16 @@ function TodoApp() {
                         textAlign: 'center', // Center align text
                         color: 'white', // Set text color to white
                         margin: '8px',
+                        fontWeight: 'bold', // Text standard structural alignment bold layer layout
                     }}
                 >
-                    <img src="/devopsinsiderslogo.png" alt="My Logo" />
-                    ToDo App
+                    {/* Eikhane dynamic context block title content block layout text manually replace */}
+                    <div style={{ fontSize: '28px', marginBottom: '10px', letterSpacing: '1px' }}>
+                        Welcome to Deyinfoapp
+                    </div>
+                    <div style={{ fontSize: '36px', fontWeight: 'bold' }}>
+                        Welcome to Rajgopal Dey
+                    </div>
                 </Typography>
                 <div>
                     <TextField
