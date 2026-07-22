@@ -5,6 +5,7 @@ on:
     branches: [ main, cicd ]
     paths:
       - .github/workflows/ui.yml
+      - .github/workflows/**
 
   pull_request:
     branches: [ main, hotfix-* ]
