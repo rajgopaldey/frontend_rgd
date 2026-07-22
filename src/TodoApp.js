@@ -1,186 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Button, TextField, Container, Typography, Grid, Card, CardContent, IconButton } from '@mui/material';
-import { Delete } from '@mui/icons-material';
-import { Box } from '@mui/material';
-import config from './config'; // Import the config file with environment variable support
+<Card
+  sx={{
+    borderRadius: '18px',
+    background: 'rgba(255, 248, 225, 0.10)',
+    backdropFilter: 'blur(10px)',
+    border: '1px solid rgba(255, 215, 0, 0.28)',
+    boxShadow: '0 10px 30px rgba(0,0,0,0.28)',
+  }}
+>
+  <CardContent>
+    <Typography variant="h6" sx={{ color: '#FFD54F', fontWeight: 'bold' }}>
+      {task.Title}
+    </Typography>
 
-// Use the config to define API URLs
-const GET_TASKS_API_BASE_URL = "http://dev-get-tasks-api.jhandu.shop";
-const DELETE_TASK_API_BASE_URL = "http://dev-delete-task-api.jhandu.shop";
-const CREATE_TASK_API_BASE_URL = "http://dev-add-task-api.jhandu.shop";
+    <Typography variant="body2" sx={{ color: '#FFF3C4', mt: 1 }}>
+      {task.Description}
+    </Typography>
 
-//Update Task Functionality is Work In Progress
-// const UPDATE_TASK_API_BASE_URL = '';
-
-const backgroundImage = process.env.PUBLIC_URL + '/background.jpg';
-
-function TodoApp() {
-    const [tasks, setTasks] = useState([]);
-    const [newTask, setNewTask] = useState({ title: '', description: '' });
-
-    const fetchTasks = async () => {
-        try {
-            const response = await axios.get(`${GET_TASKS_API_BASE_URL}/tasks`);
-            setTasks(response.data);
-        } catch (error) {
-            console.error('Error fetching tasks', error);
-        }
-    };
-
-    const createTask = async () => {
-        try {
-            await axios.post(`${CREATE_TASK_API_BASE_URL}/tasks`, newTask);
-            fetchTasks();
-            setNewTask({ title: '', description: '' });
-        } catch (error) {
-            console.error('Error creating task', error);
-        }
-    };
-
-    const deleteTask = async (taskId) => {
-        try {
-            await axios.delete(`${DELETE_TASK_API_BASE_URL}/tasks/${taskId}`);
-            fetchTasks();
-        } catch (error) {
-            console.error('Error deleting task', error);
-        }
-    };
-
-    useEffect(() => {
-        fetchTasks();
-    }, []);
-
-    return (
-        <Box
-            style={{
-                backgroundImage: `url(${backgroundImage})`, // Use the imported variable
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat',
-                backgroundAttachment: 'fixed', // Optional, for a fixed background
-                minHeight: '100vh',
-            }}
-        >
-            <Container maxWidth="sm">
-                {/* 🔴 Premium Styled Red Header Layout Block */}
-                <Box 
-                    style={{ 
-                        textAlign: 'center', 
-                        paddingTop: '30px', 
-                        marginBottom: '20px' 
-                    }}
-                >
-                    <Typography
-                        variant="h4"
-                        style={{
-                            color: '#FF3333', // Pure Vibrant Red Color
-                            fontWeight: '800', // Bold alignment
-                            letterSpacing: '1px',
-                            marginBottom: '5px',
-                            textTransform: 'uppercase'
-                        }}
-                    >
-                        Welcome to Dey Info App
-                    </Typography>
-                    
-                    <Typography
-                        variant="subtitle1"
-                        style={{
-                            color: '#FF6666', // Slightly lighter red for contrast hierarchy
-                            fontWeight: '600',
-                            fontStyle: 'italic',
-                            letterSpacing: '0.5px'
-                        }}
-                    >
-                        Organized by Rajgopal Dey
-                    </Typography>
-                </Box>
-
-                <div>
-                    <TextField
-                        label="Title"
-                        variant="outlined"
-                        color="secondary"
-                        fullWidth
-                        value={newTask.title}
-                        margin="normal"
-                        onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
-                        InputProps={{
-                            style: {
-                                color: 'white',       // Set text color to white
-                                borderColor: 'white',  // Set border color to white
-                                '&:hover': {
-                                    borderColor: 'white', // Set border color to white on hover
-                                },
-                            },
-                        }}
-                        InputLabelProps={{
-                            style: {
-                                color: 'white',       // Set label text color to white
-                            },
-                        }}
-                    />
-
-                    <TextField
-                        label="Description"
-                        variant="outlined"
-                        fullWidth
-                        multiline
-                        rows={4}
-                        value={newTask.description}
-                        margin="normal"
-                        onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
-                        InputProps={{
-                            style: {
-                                color: 'white',           // Set text color to white
-                                borderColor: 'white',      // Set border color to white
-                                '&:hover': {
-                                    borderColor: 'white',    // Set border color to white on hover
-                                },
-                            },
-                        }}
-                        InputLabelProps={{
-                            style: {
-                                color: 'white',           // Set label text color to white
-                            },
-                        }}
-                    />
-
-                    <Button variant="contained" color="primary" onClick={createTask} style={{ margin: '8px' }}>
-                        Add Task
-                    </Button>
-                </div>
-
-                <div>
-                    <Typography
-                        variant="h4"
-                        gutterBottom
-                        style={{
-                            textAlign: 'center', // Center align text
-                            color: 'white', // Set text color to white
-                            margin: '15px',
-                        }}
-                    >
-                        Existing Tasks
-                    </Typography>
-
-                    {tasks.map((task) => (
-                        <Box key={task.ID} mb={2}>
-                            <Card key={task.ID} variant="elevation">
-                                <CardContent>
-                                    <Typography variant="h6">{task.Title}</Typography>
-                                    <Typography variant="body2">{task.Description}</Typography>
-                                    <IconButton onClick={() => deleteTask(task.ID)} color="secondary">
-                                        <Delete />
-                                    </IconButton>
-                                </CardContent>
-                            </Card>
-                        </Box>
-                    ))}
-                </div>
-            </Container>
-        </Box>
-    );
-}
-
-export default TodoApp;
+    <IconButton
+      onClick={() => deleteTask(task.ID)}
+      sx={{
+        mt: 1,
+        color: '#FF6B6B',
+        '&:hover': {
+          backgroundColor: 'rgba(255,107,107,0.12)',
+        },
+      }}
+    >
+      <Delete />
+    </IconButton>
+  </CardContent>
+</Card>
