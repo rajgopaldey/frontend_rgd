@@ -147,7 +147,7 @@ jobs:
           skip_app_build: true            # Oryx compiler automatic validation structure bypass
 
 ### Root directory mapping parameter
-# Pre-built target build folder reference profile layout
+## Pre-built target build folder reference profile layout
 # Action-er internal nested auto-build parsing execution bypass engine switch
 ##./build Runner-er bhetor folder toiri hoy: Tumi jokhon-i workflow pipeline-e npm run build chalao,
 #GitHub Actions-er runner (virtual machine)-er bhetor instant automatic dist namer ekta folder 
