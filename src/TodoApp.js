@@ -1,271 +1,184 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import {
-  Button,
-  TextField,
+  Box,
   Container,
   Typography,
+  Grid,
   Card,
   CardContent,
-  IconButton,
-  Box
+  Button
 } from '@mui/material';
-import { Delete } from '@mui/icons-material';
-
-// API URLs
-const GET_TASKS_API_BASE_URL = "http://dev-get-tasks-api.jhandu.shop";
-const DELETE_TASK_API_BASE_URL = "http://dev-delete-task-api.jhandu.shop";
-const CREATE_TASK_API_BASE_URL = "http://dev-add-task-api.jhandu.shop";
 
 function TodoApp() {
-  const [tasks, setTasks] = useState([]);
-  const [newTask, setNewTask] = useState({ title: '', description: '' });
-
-  const fetchTasks = async () => {
-    try {
-      const response = await axios.get(`${GET_TASKS_API_BASE_URL}/tasks`);
-      setTasks(response.data);
-    } catch (error) {
-      console.error('Error fetching tasks', error);
-    }
-  };
-
-  const createTask = async () => {
-    try {
-      await axios.post(`${CREATE_TASK_API_BASE_URL}/tasks`, newTask);
-      fetchTasks();
-      setNewTask({ title: '', description: '' });
-    } catch (error) {
-      console.error('Error creating task', error);
-    }
-  };
-
-  const deleteTask = async (taskId) => {
-    try {
-      await axios.delete(`${DELETE_TASK_API_BASE_URL}/tasks/${taskId}`);
-      fetchTasks();
-    } catch (error) {
-      console.error('Error deleting task', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchTasks();
-  }, []);
-
   return (
     <Box
       sx={{
         minHeight: '100vh',
-        background: `
-          radial-gradient(circle at top left, rgba(255,223,0,0.35) 0%, transparent 28%),
-          radial-gradient(circle at bottom right, rgba(255,193,7,0.28) 0%, transparent 30%),
-          linear-gradient(135deg, #1a1200 0%, #332000 38%, #664400 100%)
-        `,
-        position: 'relative',
+        background: 'linear-gradient(135deg, #0b1120 0%, #111827 45%, #1e3a8a 100%)',
+        color: 'white',
         overflow: 'hidden',
-        py: 4,
       }}
     >
-      {/* Decorative glow circles */}
-      <Box
-        sx={{
-          position: 'absolute',
-          width: 260,
-          height: 260,
-          borderRadius: '50%',
-          background: 'rgba(255,215,0,0.16)',
-          top: -60,
-          left: -60,
-          filter: 'blur(6px)',
-        }}
-      />
-
-      <Box
-        sx={{
-          position: 'absolute',
-          width: 320,
-          height: 320,
-          borderRadius: '50%',
-          background: 'rgba(255,193,7,0.14)',
-          bottom: -120,
-          right: -100,
-          filter: 'blur(10px)',
-        }}
-      />
-
-      <Container maxWidth="sm" sx={{ position: 'relative', zIndex: 1 }}>
-        {/* Header */}
-        <Box sx={{ textAlign: 'center', pt: 3, mb: 3 }}>
+      {/* Hero Section */}
+      <Container maxWidth="lg" sx={{ py: 6 }}>
+        <Box sx={{ textAlign: 'center', mb: 6 }}>
           <Typography
-            variant="h4"
+            variant="h2"
             sx={{
-              color: '#FF3333',
               fontWeight: 800,
-              letterSpacing: '1px',
-              mb: 0.5,
+              color: '#ff4d4f',
               textTransform: 'uppercase',
+              letterSpacing: 1,
             }}
           >
             WELCOME TO DEY INFO APP
           </Typography>
 
           <Typography
-            variant="subtitle1"
+            variant="h6"
             sx={{
-              color: '#FF6666',
-              fontWeight: 600,
+              mt: 1,
+              color: '#ff8a80',
               fontStyle: 'italic',
+              fontWeight: 600,
             }}
           >
             Organized by Rajgopal Dey
           </Typography>
         </Box>
 
-        {/* Title */}
-        <TextField
-          label="Title"
-          variant="outlined"
-          fullWidth
-          value={newTask.title}
-          margin="normal"
-          onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
-          sx={{
-            '& .MuiOutlinedInput-root': {
-              color: '#fff8e1',
-              backgroundColor: 'rgba(255, 235, 59, 0.08)',
-              borderRadius: '16px',
-              '& fieldset': {
-                borderColor: 'rgba(255, 215, 0, 0.45)',
-              },
-              '&:hover fieldset': {
-                borderColor: '#FFD700',
-              },
-              '&.Mui-focused fieldset': {
-                borderColor: '#FFD700',
-                boxShadow: '0 0 12px rgba(255,215,0,0.45)',
-              },
-            },
-            '& .MuiInputLabel-root': {
-              color: '#FFE082',
-            },
-          }}
-        />
-
-        {/* Description */}
-        <TextField
-          label="Description"
-          variant="outlined"
-          fullWidth
-          multiline
-          rows={4}
-          value={newTask.description}
-          margin="normal"
-          onChange={(e) =>
-            setNewTask({ ...newTask, description: e.target.value })
-          }
-          sx={{
-            '& .MuiOutlinedInput-root': {
-              color: '#fff8e1',
-              backgroundColor: 'rgba(255, 235, 59, 0.08)',
-              borderRadius: '16px',
-              '& fieldset': {
-                borderColor: 'rgba(255, 215, 0, 0.45)',
-              },
-              '&:hover fieldset': {
-                borderColor: '#FFD700',
-              },
-              '&.Mui-focused fieldset': {
-                borderColor: '#FFD700',
-                boxShadow: '0 0 12px rgba(255,215,0,0.45)',
-              },
-            },
-            '& .MuiInputLabel-root': {
-              color: '#FFE082',
-            },
-          }}
-        />
-
-        {/* Add Button */}
-        <Button
-          variant="contained"
-          onClick={createTask}
-          sx={{
-            mt: 2,
-            px: 4,
-            py: 1.3,
-            borderRadius: '14px',
-            fontWeight: 'bold',
-            fontSize: '1rem',
-            color: '#2b1b00',
-            background: 'linear-gradient(135deg, #FFD700 0%, #FFB300 100%)',
-            boxShadow: '0 8px 24px rgba(255, 193, 7, 0.35)',
-            '&:hover': {
-              background: 'linear-gradient(135deg, #FFE55C 0%, #FFC107 100%)',
-              transform: 'translateY(-2px)',
-              boxShadow: '0 12px 28px rgba(255, 193, 7, 0.45)',
-            },
-            transition: 'all 0.25s ease',
-          }}
-        >
-          ADD TASK
-        </Button>
-
-        {/* Existing Tasks */}
-        <Typography
-          variant="h4"
-          sx={{
-            textAlign: 'center',
-            color: '#FFF8E1',
-            my: 4,
-            fontWeight: 700,
-          }}
-        >
-          Existing Tasks
-        </Typography>
-
-        {tasks.map((task) => (
-          <Box key={task.ID} mb={2}>
-            <Card
-              sx={{
-                borderRadius: '18px',
-                background: 'rgba(255, 248, 225, 0.10)',
-                backdropFilter: 'blur(10px)',
-                border: '1px solid rgba(255, 215, 0, 0.28)',
-                boxShadow: '0 10px 30px rgba(0,0,0,0.28)',
-              }}
+        <Grid container spacing={5} alignItems="center">
+          {/* Left Content */}
+          <Grid item xs={12} md={6}>
+            <Typography
+              variant="h3"
+              sx={{ fontWeight: 700, mb: 3, lineHeight: 1.2 }}
             >
-              <CardContent>
-                <Typography
-                  variant="h6"
-                  sx={{ color: '#FFD54F', fontWeight: 'bold' }}
-                >
-                  {task.Title}
-                </Typography>
+              We Build Modern Cloud & DevOps Solutions
+            </Typography>
 
-                <Typography
-                  variant="body2"
-                  sx={{ color: '#FFF3C4', mt: 1 }}
-                >
-                  {task.Description}
-                </Typography>
+            <Typography
+              variant="body1"
+              sx={{ color: '#d1d5db', mb: 4, fontSize: '1.05rem' }}
+            >
+              Dey Info App is a professional IT solutions platform specializing in
+              Cloud Infrastructure, DevOps Automation, Kubernetes, CI/CD pipelines,
+              and scalable web application deployment on Azure.
+            </Typography>
 
-                <IconButton
-                  onClick={() => deleteTask(task.ID)}
+            <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+              <Button
+                variant="contained"
+                size="large"
+                sx={{
+                  px: 4,
+                  py: 1.5,
+                  borderRadius: '14px',
+                  fontWeight: 'bold',
+                  background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
+                  boxShadow: '0 10px 24px rgba(37,99,235,0.35)',
+                }}
+              >
+                Explore Services
+              </Button>
+
+              <Button
+                variant="outlined"
+                size="large"
+                sx={{
+                  px: 4,
+                  py: 1.5,
+                  borderRadius: '14px',
+                  fontWeight: 'bold',
+                  color: '#fff',
+                  borderColor: 'rgba(255,255,255,0.35)',
+                }}
+              >
+                Contact Us
+              </Button>
+            </Box>
+          </Grid>
+
+          {/* Right Image */}
+          <Grid item xs={12} md={6}>
+            <Box
+              component="img"
+              src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1200&q=80"
+              alt="Developer working on cloud infrastructure"
+              sx={{
+                width: '100%',
+                borderRadius: '24px',
+                border: '1px solid rgba(255,255,255,0.12)',
+                boxShadow: '0 24px 60px rgba(0,0,0,0.45)',
+              }}
+            />
+          </Grid>
+        </Grid>
+
+        {/* Services Section */}
+        <Box sx={{ mt: 10 }}>
+          <Typography
+            variant="h4"
+            sx={{ textAlign: 'center', fontWeight: 700, mb: 5 }}
+          >
+            Our Core Services
+          </Typography>
+
+          <Grid container spacing={3}>
+            {[
+              {
+                title: 'Cloud Infrastructure',
+                desc: 'Azure resource provisioning, networking, security, and monitoring.',
+              },
+              {
+                title: 'DevOps Automation',
+                desc: 'CI/CD pipelines using GitHub Actions, Docker, and Terraform.',
+              },
+              {
+                title: 'Kubernetes',
+                desc: 'AKS deployment, scaling, ingress, and container orchestration.',
+              },
+            ].map((service) => (
+              <Grid item xs={12} md={4} key={service.title}>
+                <Card
                   sx={{
-                    mt: 1,
-                    color: '#FF6B6B',
-                    '&:hover': {
-                      backgroundColor: 'rgba(255,107,107,0.12)',
-                    },
+                    height: '100%',
+                    background: 'rgba(255,255,255,0.06)',
+                    border: '1px solid rgba(255,255,255,0.10)',
+                    borderRadius: '20px',
+                    backdropFilter: 'blur(10px)',
+                    color: 'white',
                   }}
                 >
-                  <Delete />
-                </IconButton>
-              </CardContent>
-            </Card>
-          </Box>
-        ))}
+                  <CardContent sx={{ p: 4 }}>
+                    <Typography variant="h5" sx={{ fontWeight: 700, mb: 2 }}>
+                      {service.title}
+                    </Typography>
+
+                    <Typography sx={{ color: '#cbd5e1' }}>
+                      {service.desc}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+
+        {/* Footer */}
+        <Box
+          sx={{
+            mt: 10,
+            py: 3,
+            textAlign: 'center',
+            borderTop: '1px solid rgba(255,255,255,0.12)',
+            color: '#cbd5e1',
+          }}
+        >
+          <Typography variant="body2">
+            © 2026 Dey Info App. All rights reserved.
+          </Typography>
+        </Box>
       </Container>
     </Box>
   );
